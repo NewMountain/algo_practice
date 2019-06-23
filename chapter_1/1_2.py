@@ -14,25 +14,53 @@ def flatten(list_of_something):
     return accum
 
 
-def make_permutations(string):
+def string_to_list(string):
+    """Coerce string to a list of characters, technically strings."""
+    return [char for char in string]
+
+
+def make_perms(thing):
     """Return all permutations of a string."""
-    # If there are no more characters
-    if not string:
-        return []
+    if len(thing) <= 1:
+        return [thing]
 
-    if len(string) == 1:
-        return [string]
+    # Otherwise, take the heand and tail
+    head = thing[0]
+    tail = thing[1:]
+    # and slide the head into all positions
+    # around the permutations of the tail
+    accumulator = []
+    for perm in make_perms(tail):
+        # We can use the index of thing to help here
+        for idx in range(len(thing)):
+            # Get the left side
+            # All elements up to the index
+            left = perm[:idx]
+            # The right side is all element
+            # at and past the index
+            right = perm[idx:]
+            # Smoosh them all together
+            value = left + [head] + right
+            # Flatten the list of lists and append
+            accumulator.append(flatten(value))
 
-    # Otherwsise, split head and tail
-    head = string[0]
-    tail = string[1:]
+    # Otherwise just return the list of things
+    return accumulator
 
-    permutations = flatten(make_permutations(tail))
 
-    options_1 = [f'{head}{"".join(t)}' for t in permutations]
-    options_2 = [f'{"".join(t)}{head}' for t in permutations]
+def make_permutations(thing):
+    """Support strings as well as lists."""
+    is_string = False
+    if isinstance(thing, str):
+        thing = string_to_list(thing)
+        is_string = True
 
-    return set(options_1 + options_2)
+    perms = make_perms(thing)
+
+    if is_string:
+        return ["".join(w) for w in perms]
+
+    return perms
 
 
 # First solution: Take the first string
@@ -59,7 +87,7 @@ assert flatten(flatten_test_2) == flatten_test_1
 assert flatten(flatten_test_3) == flatten_test_1
 
 # Let's test that the permutation function works
-assert make_permutations("dog") == {"dog", "dgo", "ogd", "god"}
+assert make_permutations("dog") == ["dog", "odg", "ogd", "dgo", "gdo", "god"]
 
 # Now let's test if is_permutation works
 # This is False
