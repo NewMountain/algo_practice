@@ -41,7 +41,7 @@ test_6 = ("pale", "paale")  # True
 print(test_difference(*test_5))  # This returns True, but should be False
 
 # Let's see if we can do something about this...
-# This is an O(N) solution
+# This is an O(N) solution where N is the length of the shorter string
 # Also, tracking cursors through a string is a mean problem
 def test_difference_2(str_1, str_2):
     """Basically same as test_difference, but with additional check."""
@@ -75,6 +75,8 @@ def test_difference_2(str_1, str_2):
             penalties += 1
             o_1 += 1
             o_2 += 1
+            # This break is what makes this O(N) of the shorter string
+            break
 
     # Pass if we have an acceptable level of penalties
     return penalties <= 1
