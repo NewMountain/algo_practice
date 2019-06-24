@@ -13,9 +13,13 @@ def coerce_buffer(last_char, buffer):
 # This is O(N) and space cannot exceed O(N)
 def compress(string):
     """Turn a string into smaller of original or compressed string."""
+    # To avoid recalculating a constant
+    original_len = len(string)
     # Declare a buffer and last_char
     last_char = ""
     buffer = 0
+    # We can also track the compressed_len to avoid len counts
+    compresssed_len = 0
     # A new string
     compressed_string = ""
     # Walk through the characters
@@ -27,6 +31,7 @@ def compress(string):
                 # Create the compressed representation
                 # Add the data to the compressed string
                 compressed_string += coerce_buffer(last_char, buffer)
+                compresssed_len += 2
             # Create a new character and buffer
             last_char = char
             buffer = 1
@@ -35,16 +40,17 @@ def compress(string):
             buffer += 1
 
         # Loop over, but break is len compressed_string > original_len
-        if len(compressed_string) > len(string):
+        if compresssed_len > original_len:
             return string
 
     # Don't forget to add the buffer at the end
     # Create the compressed representation
     # Add the data to the compressed string
     compressed_string += coerce_buffer(last_char, buffer)
+    compresssed_len += 2
 
     # Double check the last addition didn't exceed original length
-    if len(compressed_string) > len(string):
+    if compresssed_len > original_len:
         return string
 
     # Otherwise, return the compressed string
