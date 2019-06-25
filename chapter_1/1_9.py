@@ -16,6 +16,7 @@ def is_substring(substring, string):
 
 
 # Unclear from question: am I allowed to inspect s1?
+# In this case, the time complexity would be O(N)
 def within(s1, s2):
     """Test if s2 is a rotation of s1."""
     double_string = s2 + s2
