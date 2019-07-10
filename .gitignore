@@ -1,2 +1,5 @@
 # No need to keep my vscode configs
 .vscode/
+
+# No Python byproducts
+*.pyc
