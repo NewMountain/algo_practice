@@ -9,10 +9,12 @@ test_data = [1, 2, 2, 2, 4, 5, 6, 1, 8, 9, 0, 1, 2, 13, 15]
 # Create a linked list
 # Note the order is reversed
 test_ll_1 = LinkedList()
+test_ll_2 = LinkedList()
 
 # put the test_data into the linked list
 for elem in test_data:
     test_ll_1.insert(elem)
+    test_ll_2.insert(elem)
 
 # First version, super simple, walk the list, get the length, then
 # walk a second time and grab the len() - k element
@@ -60,14 +62,71 @@ assert return_k_1(test_ll_1, 4) == 4
 assert return_k_1(test_ll_1, 5) == 5
 
 
-def step(node, step):
-    """Walk forward from node n steps."""
-    # Set the current node
-    current_node = node
+# Now suppose we wanted to do this with a single pass using a runner
 
-    for i in range(step):
-        if current_node.next is not None:
-            current_node = current_node.next
 
-    return current_node
+def runner(node, steps_desired, current_step):
+    """Walk from the node n steps desired.
 
+    If the end is found before walking the desired amount
+    of steps, return the last node and its current step.
+    """
+    steps_taken = 0
+
+    while steps_taken < steps_desired:
+        if node.next is not None:
+            node = node.next
+            steps_taken += 1
+            current_step += 1
+        else:
+            break
+
+    return (node, current_step)
+
+
+def return_k_2(linked_list, k):
+    """Same as before except one pass using runner technique."""
+    prior_slow = None
+    prior_fast = None
+    prior_node_slow = None
+    prior_node_fast = None
+
+    current_slow = 0
+    current_fast = 0
+    current_node_slow = linked_list.head
+    current_node_fast = linked_list.head
+
+    # Basically until the fast walker hits the end of the list
+    while prior_fast != current_fast:
+        # Set the priors to current
+        (prior_node_slow, prior_slow) = (current_node_slow, current_slow)
+        (prior_node_fast, prior_fast) = (current_node_fast, current_fast)
+        # Then reset the current to walk forwardd
+        (current_node_slow, current_slow) = runner(current_node_slow, 1, current_slow)
+        (current_node_fast, current_fast) = runner(current_node_fast, 2, current_fast)
+
+    # Now we have walked until the "fast" runner hit the end of the list
+    # The prior values are the last values before we repeated the end of the list
+    last_element = prior_fast
+
+    # Figure out how many more elements the slow walker needs to step to get
+    # to the desired node
+    desired_node_index = last_element - k
+    # Calculate the amount of steps required to get there
+    steps_required = desired_node_index - prior_slow
+
+    # print(
+    #     f"We desired node {desired_node_index} and must take {steps_required} more steps to get there."
+    # )
+
+    desired_node, _whatever = runner(prior_node_slow, steps_required, prior_slow)
+
+    return desired_node.data
+
+
+assert return_k_2(test_ll_2, 0) == 1
+assert return_k_2(test_ll_2, 1) == 2
+assert return_k_2(test_ll_2, 2) == 2
+assert return_k_2(test_ll_2, 3) == 2
+assert return_k_2(test_ll_2, 4) == 4
+assert return_k_2(test_ll_2, 5) == 5
