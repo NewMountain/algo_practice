@@ -12,8 +12,12 @@ class Node:
 
     def __repr__(self):
         """Print yourself."""
-        representation = {"data": self.data, "next": self.next}
-        return f" 'data': {self.data}, 'next': {self.next.data} "
+        if self.data is not None and self.next is not None:
+            return f" 'data': {self.data}, 'next': {self.next.data} "
+        elif self.data is not None and self.next is None:
+            return f" 'data': {self.data}, 'next': null "
+        elif self is None:
+            return "Null node"
 
     def append(self, node):
         """Append a node onto yourself."""
