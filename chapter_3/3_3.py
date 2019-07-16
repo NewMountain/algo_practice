@@ -34,15 +34,6 @@ class Stack:
         self.length += 1
         self.data.append(value)
 
-    def peek(self):
-        """Look at an item on the stack."""
-        if self.not_empty():
-            return None
-
-        # Otherwise, peek, by popping off and putting back and returning the value
-        value = self.data.pop()
-        self.data.append(value)
-
         return value
 
     def not_empty(self):
