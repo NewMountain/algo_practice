@@ -29,7 +29,7 @@ def step(node, step):
     # Set the current node
     current_node = node
 
-    for i in range(step):
+    for _ in range(step):
         if current_node.next is not None:
             current_node = current_node.next
 
