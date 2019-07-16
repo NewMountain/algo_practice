@@ -10,7 +10,7 @@
 class ThreeStack:
     """Make three stacks from a single array.
     
-    Indexes 0, 1 and 2 hold the index where their contents begin."""
+    Indexes 0, 1 and 2 hold the length of their contents."""
 
     def __init__(self):
         """Create the ThreeStack data structure."""
