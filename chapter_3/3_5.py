@@ -85,7 +85,6 @@ def sort_stack(stack):
 
             else:
                 # if it's lt, pop it off and push it on stack
-                # Otherwise, pop temp value, push it onto the stack
                 # Then push the temp value onto the stack
                 temp_value = temp_stack.pop()
                 # Basically you flip the order of the elements in the stack
