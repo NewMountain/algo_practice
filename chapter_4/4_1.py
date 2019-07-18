@@ -1,4 +1,4 @@
-"""Chapter 3: Trees and Graphs. Question 4.1"""
+"""Chapter 4: Trees and Graphs. Question 4.1"""
 
 from collections import deque
 import random
