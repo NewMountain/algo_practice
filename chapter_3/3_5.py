@@ -7,6 +7,7 @@
 # The Stack supports push, pop, peek and isEmpty
 
 from collections import deque
+import time
 
 # Let's define a stack object
 class Stack:
@@ -19,13 +20,14 @@ class Stack:
 
     def __repr__(self):
         """Print function."""
-        return f"contents:\n{self.contents}"
+        return f"\ncontents:\n{self.contents}"
 
     def push(self, value):
         """Push an element onto the stack."""
         if value is None:
             raise Exception("Null value not allowed")
 
+        self.depth += 1
         self.contents.append(value)
 
     def pop(self):
@@ -33,6 +35,7 @@ class Stack:
         if self.is_empty():
             return None
 
+        self.depth -= 1
         return self.contents.pop()
 
     def peek(self):
@@ -48,3 +51,54 @@ class Stack:
     def is_empty(self):
         """Return true is empty."""
         return self.depth == 0
+
+
+# Create a stack
+s = Stack()
+
+data = [8, 6, 7, 5, 3, 0, 9]
+# data = [2, 1, 3]
+
+# Reverse to maintain order in stack.
+for d in reversed(data):
+    s.push(d)
+
+
+def sort_stack(stack):
+    """Sort a stack using only another temp stack.
+    
+    This is basically just a bubble sort with stacks."""
+    temp_stack = Stack()
+    # Pull a number off stack
+    # Peek at temp stack
+    while stack.peek() is not None:
+        element = stack.pop()
+        # If temp stack is empty, put the number on temp stack
+        if temp_stack.peek() is None:
+            temp_stack.push(element)
+
+        else:
+            # if the element is gte, put it down
+            temp_value = temp_stack.peek()
+            if element >= temp_value:
+                temp_stack.push(element)
+
+            else:
+                # if it's lt, pop it off and push it on stack
+                # Otherwise, pop temp value, push it onto the stack
+                # Then push the temp value onto the stack
+                temp_value = temp_stack.pop()
+                # Basically you flip the order of the elements in the stack
+                stack.push(temp_value)
+                stack.push(element)
+
+    # Now just unpack the results
+    acc = []
+    while not temp_stack.is_empty():
+        elem = temp_stack.pop()
+        acc.append(elem)
+
+    return acc
+
+
+assert sort_stack(s) == [9, 8, 7, 6, 5, 3, 0]
