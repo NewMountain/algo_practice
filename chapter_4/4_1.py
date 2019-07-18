@@ -25,7 +25,7 @@ def does_path_exist(node_1, node_2, graph):
     """Given a graph, determine if you can get from node_1 to node_2."""
     print(f"Start at {node_1}")
     print(f"Hope to end at {node_2}")
-    # We two collections, the first, a queue to determine where to go next
+    # We two collections, the first, a FIFO queue to determine where to go next
     # (This will be a breadth first search)
     nodes_to_visit = deque()
     # Let's also create a set for nodes_visited
