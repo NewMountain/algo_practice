@@ -78,7 +78,7 @@ def sort_stack(stack):
             temp_stack.push(element)
 
         else:
-            # if the element is gte, put it down
+            # if the element is gte, put it down in temp_stack.
             temp_value = temp_stack.peek()
             if element >= temp_value:
                 temp_stack.push(element)
