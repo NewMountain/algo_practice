@@ -1,4 +1,4 @@
-"""Chapter 4: Trees and Graphs. Question 4.4"""
+"""Chapter 4: Trees and Graphs. Question 4.5"""
 
 # Implement a function to test if a binary tree is
 # a binary search tree
