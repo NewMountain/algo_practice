@@ -99,6 +99,7 @@ def find_element(node, value):
         # Filter numbers less than value
         results = [leftest_right_child, parent_value]
 
+        # Return the min value of results greater than value
         return min([x for x in results if x > value])
 
     if local_value > value:
