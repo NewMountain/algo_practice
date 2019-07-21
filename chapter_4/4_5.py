@@ -120,6 +120,7 @@ def test_2(node, _min, _max):
     # Then check the left and right nodes adhere as well
     # Note the min is now the nodes value for all nodes right
     right_balanced = test_2(node.right, node.value, _max)
+    # In left case, min remains the same but max becomes the node value
     left_balanced = test_2(node.left, _min, node.value)
 
     return value_between and right_balanced and left_balanced
