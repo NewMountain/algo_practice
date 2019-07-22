@@ -1,4 +1,4 @@
-"""Chapter 4: Trees and Graphs. Question 4.7"""
+"""Chapter 4: Trees and Graphs. Question 4.6"""
 
 # Write an algorithm to find the "next" node in order
 # in a binary search tree
