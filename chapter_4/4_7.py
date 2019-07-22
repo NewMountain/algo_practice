@@ -1,6 +1,7 @@
 """Chapter 4: Trees and Graphs. Question 4.7"""
 
 import math
+import copy
 
 # Given a list of projects their dependencies
 # [(dependency, project)]
@@ -15,7 +16,9 @@ def find_node(build_order, dependencies):
     # Pointers on dictionaries are evil
     # Algo now is simple, iterate through the keys
     # Remove the key and also remove it from any other list of values
-    for k, v in dependencies.items():
+    d = copy.deepcopy(dependencies)
+    # So we can delete all instances without depedencies in one pass
+    for k, v in d.items():
         # Find a key with an empty list of values,
         if not v:
             # Add k to the build order
@@ -26,11 +29,11 @@ def find_node(build_order, dependencies):
             # I wish set operations were pure functions in Python
             _trigger_io = {key: value.discard(k) for key, value in dependencies.items()}
 
-            return build_order, dependencies
-
     return build_order, dependencies
 
 
+# I am told this is O(P+D) time where p is projects and D is dependencies
+# This is a topological sort
 def resolve_build_order(projects, dependencies):
     """Return a build order or throw an error."""
     # Unpack the dependencies into a dictionary for faster reference
