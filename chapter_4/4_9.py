@@ -1,4 +1,4 @@
-"""Chapter 4: Trees and Graphs. Question 4.8"""
+"""Chapter 4: Trees and Graphs. Question 4.9"""
 
 # Given a binary search tree with distinct elements, print all
 # possible arrays that could have resulted in this
