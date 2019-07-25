@@ -75,6 +75,7 @@ class BSTree:
             # insert this value as a node to the left
             if self.left is None:
                 new_node = BSTree(value, self)
+                new_node.parent = self
                 self.left = new_node
                 return self
             else:
@@ -85,6 +86,7 @@ class BSTree:
         # Otherwise, insert to the right
         if self.right is None:
             new_node = BSTree(value, self)
+            new_node.parent = self
             self.left = new_node
             return self
 
@@ -107,26 +109,30 @@ class BSTree:
 
         if sum(left, right) == 0:
             # Node has no children, you can just delete it
-            self._delete()
+            del self
 
         elif sum(left, right) == 1 and left == 1:
             # Swap the current node with the left child
             self.left.parent = self.parent
             self.parent.left = self.left
             # The delete the node to delete
+            self.left = None
+            self.right = None
             self._delete()
 
         elif sum(left, right) == 1 and right == 1:
             # Swap the current node with the right child
             self.right.parent = self.parent
             self.parent.right = self.right
+            self.left = None
+            self.right = None
             self._delete()
 
         elif sum(left, right) == 2:
             # The node has two children
             # Now the fun begins
             # Find the minimum of right node
-            min_value, min_node = find_min_node_data(self)
+            min_value, min_node = find_min_node_data(self.right)
             # Get the value out of this node
             # set that value equal to node to delete
             self.value = min_value
