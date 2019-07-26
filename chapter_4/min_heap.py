@@ -21,24 +21,6 @@ class MinHeap:
 
         return ((1 + index) // 2) - 1
 
-    def __left_child(self, index):
-        """Calculate the index of the left child."""
-        left_index = ((index + 1) * 2) - 1
-        if left_index < self.size():
-            return left_index
-
-        # Left index is out of bounds
-        return None
-
-    def __right_child(self, index):
-        """Calculate the index of the right child."""
-        left_child = self.__left_child(index)
-        if left_child is not None and left_child + 1 < self.size():
-            return left_child + 1
-
-        # Either out of bounds or no left_child
-        return None
-
     def __swap(self, i_1, i_2):
         """Swap index_1 and index_2 in contents."""
         # I don't like the way this formatted...
@@ -92,13 +74,31 @@ class MinHeap:
 
     def __heapify(self, index):
         """Heapify (resort) the heap."""
-        left_index = self.__left_child(index)
-        right_index = self.__right_child(index)
+        left_index = self.left_child(index)
+        right_index = self.right_child(index)
         min_index, min_value = self.__find_min(left_index, right_index)
 
         if min_value is not None and min_value < self.contents[index]:
             self.__swap(min_index, index)
             self.__heapify(min_index)
+
+    def left_child(self, index):
+        """Calculate the index of the left child."""
+        left_index = ((index + 1) * 2) - 1
+        if left_index < self.size():
+            return left_index
+
+        # Left index is out of bounds
+        return None
+
+    def right_child(self, index):
+        """Calculate the index of the right child."""
+        left_child = self.left_child(index)
+        if left_child is not None and left_child + 1 < self.size():
+            return left_child + 1
+
+        # Either out of bounds or no left_child
+        return None
 
     def size(self):
         """Return the size of the heap."""
