@@ -82,6 +82,16 @@ class MinHeap:
             self.__swap(min_index, index)
             self.__heapify(min_index)
 
+    def get_value(self, index):
+        """Return the value of the index if in range."""
+        if index is None:
+            return None
+
+        if index < len(self.contents):
+            return self.contents[index]
+
+        return None
+
     def left_child(self, index):
         """Calculate the index of the left child."""
         left_index = ((index + 1) * 2) - 1
