@@ -1,4 +1,4 @@
-"""Chapter 8: Bit manipulation. Question 8.1"""
+"""Chapter 8: Recursion and Dyanamic Programming. Question 8.1"""
 
 # You can run up a staircase of n steps, taking 0, 1, or 2 steps each time
 # how many combinations are there to get to the top?
