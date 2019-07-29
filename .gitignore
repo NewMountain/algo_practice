@@ -3,3 +3,6 @@
 
 # No Python byproducts
 *.pyc
+
+# Ignore type cache from mypy
+.mypy_cache/
