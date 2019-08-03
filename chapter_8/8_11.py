@@ -92,7 +92,7 @@ def make_change(cents, change=(25, 10, 5, 1)):
     list_change = list(change)
     # There is no more change for us to make
     if not list_change:
-        return 0
+        return 1
     if len(list_change) == 1:
         return 1
 
@@ -127,4 +127,4 @@ def make_change(cents, change=(25, 10, 5, 1)):
         return sum(count)
 
 
-print(make_change(92))
+print(make_change(6))
