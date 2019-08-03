@@ -29,7 +29,7 @@ number_desired = random.choice(n)
 
 
 def find_point(numbers, start, end):
-    """Find a number in numbers."""
+    """Find a bitonic point in numbers."""
     mid_point = (start + end) // 2
     mid_value = numbers[mid_point]
     start_value = numbers[start]
